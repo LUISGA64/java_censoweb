@@ -7,9 +7,20 @@
         <title>Facelet Title</title>
     </h:head>
     <h:body>
-        
-        <p:commandButton value="Nuevo"/>
-        <p:calendar />
+        <h:form>
+            <h:panelGrid columns="2">
+                <p:outputLabel value="Código"/>
+                <p:inputText value="#{tipoDocController.tipodoc.codtipoDoc}"/>
+                
+                <p:outputLabel value="Descripción"/>
+                <p:inputText value="#{tipoDocController.tipodoc.destipoDoc}"/>
+                
+                <p:outputLabel value="Tipo Documento"/>
+                <p:inputText value="#{tipoDocController.tipodoc.tipodocumento}"/>
+            </h:panelGrid>
+            <p:separator/>
+                <p:commandButton value="Registrar" actionListener="#{tipoDocController.registrar()}"/>
+        </h:form>
     </h:body>
 </html>
 
