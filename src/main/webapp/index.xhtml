@@ -21,6 +21,12 @@
             <p:separator/>
                 <p:commandButton value="Registrar" actionListener="#{tipoDocController.registrar()}"/>
         </h:form>
+        
+        <p:dataTable var="doc" value="#{tipoDocController.tiposDocs}">
+            <p:column headerText="codigo">
+                <h:outputText value="#{doc.codtipoDoc}"/>
+            </p:column>
+        </p:dataTable>
     </h:body>
 </html>
 
