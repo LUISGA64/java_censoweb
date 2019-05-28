@@ -40,6 +40,7 @@ public class LoginController implements Serializable{
         try{
             lg = EJBLogin.iniciarSesion(login);
             if(lg != null){
+                FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("login", lg);
                 redireccion = "/protegido/principal";
                 
             } else{
