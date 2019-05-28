@@ -11,22 +11,28 @@
     </h:head>
     <body>
         <div class="container">
-            <p:growl id="growl" showDetail="true" life="3000"/>  
+            
             <h:form>  
                 <p:panel id="panel" 
                          style="
                          width: 30%; 
-                         margin-left: 60%; 
-                         height: 550px;
+                         margin-left: 60%;
+                         margin-top: 50px;
+                         height: 400px;
                          ">
+                    <p:messages autoUpdate="true" showDetail="true" />
+                    <h3>Usuario</h3>
                     
-                    <h1>Usuario</h1>
-                    <h:panelGrid columns="2">
-                        <h:outputLabel for="username" value="Usuario:" />  
-                        <p:inputText value="#{loginBean.login.login}" id="username" required="true" label="Usuario" />
+                    <h:panelGrid columns="2" id="gridlogin" cellpadding="10px">
+                        <h:outputLabel value="Usuario:" for="username" />  
+                        <p:inputText id="username" value="#{loginController.login.usuario}" required="true" />
                         
-                        <h:outputLabel for="password" value="Clave:" />  
-                        <p:password value="#{loginBean.login.password}" id="password" required="true" label="Clave"/>
+                        <h:outputLabel value="Clave:" for="password" />  
+                        <p:password id="password" value="#{loginController.login.password}" required="true"/>
+                        
+                        
+                        <p:commandButton value="Ingresar" action="#{loginController.iniciarSesion()}"/>
+                        
                     </h:panelGrid>
                 </p:panel>
             </h:form>

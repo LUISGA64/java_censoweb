@@ -10,7 +10,7 @@ public class MyUtil {
         return "http://localhost:8080/CensoWebJava/";
     }
     
-    public String basepathLogin(){
+    public static String basepathLogin(){
         return "faces/view/";
     }
 

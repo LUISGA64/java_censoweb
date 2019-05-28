@@ -30,4 +30,6 @@ public interface LoginFacadeLocal {
 
     int count();
     
+    Login iniciarSesion(Login lg);
+    
 }

@@ -6,9 +6,11 @@
 package com.censoweb.ejb;
 
 import com.censoweb.model.Login;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -27,6 +29,25 @@ public class LoginFacade extends AbstractFacade<Login> implements LoginFacadeLoc
 
     public LoginFacade() {
         super(Login.class);
+    }
+    
+    @Override
+    public Login iniciarSesion(Login lg){
+        Login login = null;
+        String consulta;
+        try{
+            consulta = "FROM Login l WHERE l.usuario = ?1 and l.password = ?2";
+            Query query = em.createQuery(consulta);
+            query.setParameter(1, lg.getUsuario());
+            query.setParameter(2, lg.getPassword());
+            List<Login> lista = query.getResultList();
+            if(!lista.isEmpty()){
+                login = lista.get(0);
+            }
+        }catch(Exception e){
+            throw e;
+        } 
+        return login;
     }
     
 }

@@ -4,30 +4,27 @@ package com.censoweb.controller;
 import com.censoweb.ejb.LoginFacadeLocal;
 import com.censoweb.model.Login;
 import java.io.Serializable;
-import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.faces.bean.ManagedProperty;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
 @Named
 @ViewScoped
 public class LoginController implements Serializable{
-    private List<Login> logins;
+   
+    @EJB
+    private LoginFacadeLocal EJBLogin;
     private Login login;
-    private Login loginNew;
-    private Login loginSelect;
-    private Login loginSesion;
-
-    public List<Login> getLogins() {
-        return logins;
+    
+    @PostConstruct
+    public void init(){
+        login = new Login();
     }
 
-    public void setLogins(List<Login> logins) {
-        this.logins = logins;
-    }
-
+    //metodos Getter & Setter
     public Login getLogin() {
         return login;
     }
@@ -35,52 +32,35 @@ public class LoginController implements Serializable{
     public void setLogin(Login login) {
         this.login = login;
     }
-
-    public Login getLoginNew() {
-        return loginNew;
-    }
-
-    public void setLoginNew(Login loginNew) {
-        this.loginNew = loginNew;
-    }
-
-    public Login getLoginSelect() {
-        return loginSelect;
-    }
-
-    public void setLoginSelect(Login loginSelect) {
-        this.loginSelect = loginSelect;
-    }
-
-    public Login getLoginSesion() {
-        return loginSesion;
-    }
-
-    public void setLoginSesion(Login loginSesion) {
-        this.loginSesion = loginSesion;
+    
+    public String iniciarSesion(){
+        Login lg;
+        String redireccion = null;
+        FacesContext context = FacesContext.getCurrentInstance();
+        try{
+            lg = EJBLogin.iniciarSesion(login);
+            if(lg != null){
+                redireccion = "/protegido/principal";
+                
+            } else{
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"Error:","Datos incorrectos"));
+            }
+        }
+        catch(Exception e){
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL,"Error","Acceso denegado!"));
+        }
+        return redireccion;
     }
     
-    @ManagedProperty("#{utilbean}")
-    private Utilbean utilbean;
-
-    @ManagedProperty("#{appBean}")
-    private AppBean appBean;
     
-        
-    @EJB
-    private LoginFacadeLocal loginEJB;
-    
-    @PostConstruct
-    public void init(){
-        setLogins(loginEJB.findAll());
-        loginNew = new Login();
-    }
-    
-    public LoginController(){
-        if(this.login == null){
-            this.login = new Login();
-            loginSelect = new Login();
-            loginNew = new Login();
+    public void registrar(){
+        try{
+            EJBLogin.create(login);
+            EJBLogin.findAll();
+            //
+        }catch(Exception e){
+            throw e;
+            //
         }
     }
     
