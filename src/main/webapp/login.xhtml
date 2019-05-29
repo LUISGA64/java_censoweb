@@ -16,22 +16,22 @@
                 <p:panel id="panel" 
                          style="
                          width: 30%; 
-                         margin-left: 60%;
-                         margin-top: 50px;
-                         height: 400px;
+                         margin-left: 65%;
+                         margin-top: 55px;
+                         height: 370px;
                          ">
-                    <p:messages autoUpdate="true" showDetail="true" />
+                    <p:messages autoUpdate="true" />
                     <h3>Usuario</h3>
                     
                     <h:panelGrid columns="2" id="gridlogin" cellpadding="10px">
                         <h:outputLabel value="Usuario:" for="username" />  
-                        <p:inputText id="username" value="#{loginController.login.usuario}" required="true" />
+                        <p:inputText id="username" value="#{loginController.login.usuario}" required="true" requiredMessage="Usuario requerido" />
                         
                         <h:outputLabel value="Clave:" for="password" />  
-                        <p:password id="password" value="#{loginController.login.password}" required="true"/>
+                        <p:password id="password" value="#{loginController.login.password}" required="true" requiredMessage="Password requerido"/>
                         
-                        
-                        <p:commandButton value="Ingresar" action="#{loginController.iniciarSesion()}"/>
+                        <h:column></h:column>
+                        <p:commandButton value="Ingresar" action="#{loginController.iniciarSesion()}" icon="fa fa-key"/>
                         
                     </h:panelGrid>
                 </p:panel>

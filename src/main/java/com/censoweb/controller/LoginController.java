@@ -41,7 +41,7 @@ public class LoginController implements Serializable{
             lg = EJBLogin.iniciarSesion(login);
             if(lg != null){
                 FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("login", lg);
-                redireccion = "/protegido/principal";
+                redireccion = "/protegido/principal?faces-redirect=true";
                 
             } else{
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"Error:","Datos incorrectos"));
