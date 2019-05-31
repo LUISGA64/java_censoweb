@@ -12,6 +12,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -55,6 +57,9 @@ public class Login implements Serializable {
     @Size(min = 1, max = 15)
     @Column(name = "usuario")
     private String usuario;
+    @JoinColumn(name = "idRol", referencedColumnName = "id_rol")
+    @ManyToOne
+    private Rol idRol;
 
     public Login() {
     }
@@ -100,6 +105,14 @@ public class Login implements Serializable {
 
     public void setUsuario(String usuario) {
         this.usuario = usuario;
+    }
+
+    public Rol getIdRol() {
+        return idRol;
+    }
+
+    public void setIdRol(Rol idRol) {
+        this.idRol = idRol;
     }
 
     @Override
